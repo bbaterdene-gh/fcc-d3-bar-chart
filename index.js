@@ -13,7 +13,7 @@ const drawBarChart = (data) => {
   const xScale = d3.scaleBand()
                    .domain(data.map(d => new Date(d[0])))
                    .range([0, graphWidth])
-                   .padding(1)
+
   const yScale = d3.scaleLinear()
                    .domain([0, d3.max(data, d => d[1])])
                    .range([graphHeight, 0])
