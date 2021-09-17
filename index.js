@@ -15,7 +15,7 @@ const drawBarChart = (data) => {
                    .range([0, graphWidth])
                    .padding(1)
   const yScale = d3.scaleLinear()
-                   .domain(d3.extent(data, d => d[1]))
+                   .domain([0, d3.max(data, d => d[1])])
                    .range([graphHeight, 0])
 
   const xAxis = d3.axisBottom()
