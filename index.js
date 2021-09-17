@@ -35,6 +35,9 @@ const drawBarChart = (data) => {
                     .selectAll('rect')
                     .data(data)
                     .join('rect')
+                    .classed('bar', true)
+                    .attr('data-date', d => d[0])
+                    .attr('data-gdp', d => d[1])
                     .attr('x', d => xScale(new Date(d[0])))
                     .attr('y', d => yScale(d[1]))
                     .attr('width', barWidth)
@@ -55,6 +58,7 @@ const drawBarChart = (data) => {
                         <br />
                         $${formatter(gdp)} Billion
                       `)
+                      .attr('data-date', date)
                       .style('left', `${e.clientX + paddingLeft}px`)
                       .style('transform', `translateY(${paddingTop + paddingBottom}px)`)
                       .transition(animation)
@@ -67,10 +71,12 @@ const drawBarChart = (data) => {
                     })
 
   svg.append('g')
+     .attr('id', 'x-axis')
      .call(xAxis)
      .attr('transform', `translate(${paddingLeft}, ${graphHeight + paddingTop})`)
 
   svg.append('g')
+     .attr('id', 'y-axis')
      .call(yAxis)
      .attr('transform', `translate(${paddingLeft}, ${paddingTop})`)
 
