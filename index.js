@@ -61,7 +61,7 @@ const drawBarChart = (data) => {
                       .style('opacity', '0.9')
 
                     })
-                    .on('mouseleave', function() {
+                    .on('mouseout', function() {
                       d3.select(this).style('fill', '#33adff')
                       tooltip.style('opacity', 0)
                     })
@@ -86,6 +86,7 @@ const drawBarChart = (data) => {
      .attr('transform', `translate(${graphWidth - paddingLeft - paddingRight}, ${graphHeight + paddingTop + paddingBottom - 10})`)
      .attr('text-anchor', 'middle')
 
+  d3.select('body').on('mousemove', () => tooltip.style('opacity', 0))
 }
 
 fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
