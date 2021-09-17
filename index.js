@@ -55,6 +55,16 @@ const drawBarChart = (data) => {
 
   graph.attr('transform', `translate(${paddingLeft}, ${paddingTop})`)
 
+  svg.append('text')
+     .text('Gross Domestic Product')
+     .attr('transform', `translate(${paddingLeft + 20}, ${paddingTop*3})rotate(-90)`)
+     .attr('text-anchor', 'middle')
+
+  svg.append('text')
+     .text('More Information: http://www.bea.gov/national/pdf/nipaguid.pdf')
+     .attr('transform', `translate(${graphWidth - paddingLeft - paddingRight}, ${graphHeight + paddingTop + paddingBottom - 10})`)
+     .attr('text-anchor', 'middle')
+
 }
 
 fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
