@@ -5,7 +5,7 @@ const drawBarChart = (data) => {
   const paddingLeft = 80
   const paddingRight = 50
   const paddingTop =50
-  const barWidth = 3
+  const barWidth = 3.3
   const svg = d3.select('svg')
                 .attr('width', graphWidth + paddingLeft + paddingRight)
                 .attr('height', graphHeight + paddingBottom + paddingTop)
@@ -29,6 +29,8 @@ const drawBarChart = (data) => {
   const yAxis = d3.axisLeft()
                   .scale(yScale)
 
+  const tooltip = d3.select('#tooltip')
+
   const graph = svg.append('g')
                     .selectAll('rect')
                     .data(data)
@@ -38,11 +40,30 @@ const drawBarChart = (data) => {
                     .attr('width', barWidth)
                     .attr('height', d => graphHeight - yScale(d[1]))
                     .style('fill', '#33adff')
-                    .on('mouseover', function() {
-                      d3.select(this).style('fill', '#ffffff')
+                    .on('mouseover', function(e) {
+                      _this = d3.select(this)
+                      _this.style('fill', '#ffffff')
+                      const [date, gdp] = _this.datum()
+                      const year = date.split('-')[0]
+                      const month = date.split('-')[1]
+                      const quarter = Math.floor((+month + 2) / 3);
+                      const formatter = d3.format(",")
+                      const animation = d3.transition().duration(100)
+                      tooltip
+                      .html(`
+                        ${year} Q${quarter}
+                        <br />
+                        $${formatter(gdp)} Billion
+                      `)
+                      .style('left', `${e.clientX + paddingLeft}px`)
+                      .style('transform', `translateY(${paddingTop + paddingBottom}px)`)
+                      .transition(animation)
+                      .style('opacity', '0.9')
+
                     })
                     .on('mouseleave', function() {
                       d3.select(this).style('fill', '#33adff')
+                      tooltip.style('opacity', 0)
                     })
 
   svg.append('g')

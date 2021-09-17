@@ -18,3 +18,19 @@
 #graph {
   margin-bottom: 2rem;
 }
+
+#tooltip {
+  display: flex;
+  background: lightsteelblue;
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  box-shadow: 1px 1px 10px;
+  border-radius: 2px;
+  padding: 2px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  font-family: 'Roboto';
+}
