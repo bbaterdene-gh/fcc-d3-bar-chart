@@ -1,18 +1,19 @@
 const drawBarChart = (data) => {
-  const svgWidth = 900
-  const svgHeight = 460
+  const graphWidth = 900
+  const graphHeight = 460
+  const paddingBottom = 50
   const barWidth = 3
   const svg = d3.select('svg')
-                .attr('width', svgWidth)
-                .attr('height', svgHeight)
+                .attr('width', graphWidth)
+                .attr('height', graphHeight + paddingBottom)
 
   const xScale = d3.scaleBand()
                    .domain(data.map(d => new Date(d[0])))
-                   .range([0, svgWidth])
+                   .range([0, graphWidth])
                    .padding(1)
   const yScale = d3.scaleLinear()
                    .domain(d3.extent(data, d => d[1]))
-                   .range([svgHeight, 0])
+                   .range([graphHeight, 0])
 
   svg.selectAll('rect')
      .data(data)
@@ -20,7 +21,7 @@ const drawBarChart = (data) => {
      .attr('x', d => xScale(new Date(d[0])))
      .attr('y', d => yScale(d[1]))
      .attr('width', barWidth)
-     .attr('height', d => svgHeight - yScale(d[1]))
+     .attr('height', d => graphHeight - yScale(d[1]))
      .style('fill', '#33adff')
      .on('mouseover', function() {
        d3.select(this).style('fill', '#ffffff')
